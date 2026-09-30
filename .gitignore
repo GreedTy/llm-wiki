@@ -1,0 +1,6 @@
+# Obsidian 개인 작업 상태(커밋하지 않음)
+.obsidian/workspace.json
+.obsidian/workspace-mobile.json
+.obsidian/cache
+.trash/
+.DS_Store

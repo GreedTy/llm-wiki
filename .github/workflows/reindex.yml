@@ -1,0 +1,32 @@
+name: Reindex chatbot
+
+# 위키를 main에 push하면 챗봇 서버에 재색인을 요청합니다.
+# 인증: 이 워크플로가 발급받은 GitHub OIDC 토큰(audience=qna-reindex)을 챗봇 서버가 검증합니다(비밀값 불필요).
+on:
+  push:
+    branches: [main]
+    paths: ["**.md"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  reindex:
+    runs-on: ubuntu-latest
+    steps:
+      - id: token
+        uses: actions/github-script@v7
+        with:
+          result-encoding: string
+          script: return await core.getIDToken('qna-reindex')
+      - name: Call reindex hook
+        env:
+          QNA_URL: ${{ vars.QNA_URL }}
+        run: |
+          if [ -z "$QNA_URL" ]; then echo "저장소 변수 QNA_URL이 없어 건너뜁니다(서버가 15분마다 자동 확인)."; exit 0; fi
+          code=$(curl -s -o /tmp/out -w '%{http_code}' -X POST "$QNA_URL/hooks/reindex" \
+            -H "Authorization: Bearer ${{ steps.token.outputs.result }}")
+          cat /tmp/out; echo
+          test "$code" = "202"
