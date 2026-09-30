@@ -6,9 +6,18 @@ LLM(대규모 언어 모델)의 개념, RAG, 에이전트, 운영 지식을 정�
 
 ## 사용법
 
-1. 이 저장소를 clone합니다.
+1. 이 저장소를 clone합니다. OneDrive처럼 동기화되는 폴더는 git과 충돌할 수 있으니 피하세요.
 2. Obsidian에서 `Open folder as vault`로 clone한 폴더를 엽니다.
 3. 시작점은 [[00-Index]]입니다.
+
+### Obsidian 안에서 GitHub와 동기화하기 (Obsidian Git 플러그인)
+
+1. 설정 → 커뮤니티 플러그인 → 커뮤니티 플러그인 사용 → 탐색에서 **Git**(Vinzent03)을 설치하고 활성화합니다.
+2. 명령 팔레트(Ctrl+P)에서 `Git: Clone an existing remote repo`를 실행합니다.
+   - URL: `https://github.com/GreedTy/llm-wiki.git`
+   - 디렉터리: `Vault Root`
+3. Obsidian을 다시 시작합니다. 이후에는 플러그인 설정의 자동 commit/push 주기(예: 10분)에 따라 GitHub와 동기화됩니다.
+4. push하면 챗봇이 몇 초 안에 새 내용을 색인합니다.
 
 ## 작성 규칙
 
